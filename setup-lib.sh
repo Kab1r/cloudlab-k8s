@@ -191,25 +191,25 @@ maybe_install_packages() {
 ##
 ## Figure out the system python version.
 ##
-python --version
-if [ ! $? -eq 0 ]; then
-    python3 --version
-    if [ $? -eq 0 ]; then
-	PYTHON=python3
-    else
-	are_packages_installed python3
-	success=`expr $? = 0`
-	# Keep trying again with updated cache forever;
-	# we must have python.
-	while [ ! $success -eq 0 ]; do
-	    do_apt_update
-	    $SUDO apt-get $DPKGOPTS install $APTGETINSTALLOPTS python3
-	    success=$?
-	done
-	PYTHON=python3
-    fi
+python3 --version
+if [ $? -eq 0 ]; then
+    PYTHON=python3
 else
-    PYTHON=python
+    python --version
+    if [ ! $? -eq 0 ]; then
+    	are_packages_installed python3
+    	success=`expr $? = 0`
+    	# Keep trying again with updated cache forever;
+    	# we must have python.
+    	while [ ! $success -eq 0 ]; do
+    	    do_apt_update
+    	    $SUDO apt-get $DPKGOPTS install $APTGETINSTALLOPTS python3
+    	    success=$?
+    	done
+    	PYTHON=python3
+    else
+        PYTHON=python
+    fi
 fi
 $PYTHON --version | grep -q "Python 3"
 if [ $? -eq 0 ]; then
