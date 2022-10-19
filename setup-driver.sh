@@ -3,7 +3,7 @@
 set -x
 
 ALLNODESCRIPTS="setup-ssh.sh setup-disk-space.sh"
-HEADNODESCRIPTS="setup-nfs-server.sh setup-nginx.sh setup-ssl.sh setup-kubespray.sh setup-kubernetes-extra.sh setup-end.sh"
+HEADNODESCRIPTS="setup-nfs-server.sh setup-nginx.sh setup-ssl.sh setup-kubespray.sh setup-kubernetes-extra.sh setup-deathstarbench.sh setup-end.sh"
 WORKERNODESCRIPTS="setup-nfs-client.sh"
 
 export SRC=`dirname $0`
