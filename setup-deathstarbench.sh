@@ -2,8 +2,28 @@
 
 set -x
 
+if [ -z "$EUID" ]; then
+    EUID=`id -u`
+fi
+
+# Grab our libs
+. "`dirname $0`/setup-lib.sh"
+
+if [ -f $OURDIR/deathstarbench-done ]; then
+    exit 0
+fi
+
+logtstart "deathstarbench"
+
+if [ -f $SETTINGS ]; then
+    . $SETTINGS
+fi
+if [ -f $LOCALSETTINGS ]; then
+    . $LOCALSETTINGS
+fi
+
 # Deploy NFS Provisioner if NFS is enabled
-if [ "$DONFS" = "1" ]; then
+if [ -n "$DONFS" -a $DONFS -eq 1 ]; then
     helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
     helm upgrade --install nfs-subdir-external-provisioner \
         --set nfs.server=$SINGLENODE_MGMT_IP \
