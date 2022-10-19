@@ -3,7 +3,7 @@
 set -x
 
 # Deploy NFS Provisioner if NFS is enabled
-if [ $DONFS -eq 1 ]; then
+if [ "$DONFS" -eq 1 ]; then
     helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
     helm upgrade --install nfs-subdir-external-provisioner \
         --set nfs.server=$SINGLENODE_MGMT_IP \
