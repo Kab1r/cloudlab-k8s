@@ -54,7 +54,7 @@ pc.defineParameter(
     longDescription="An image URN or URL that every node will run.")
 pc.defineParameter(
     "multiplexLans", "Multiplex Networks",
-    portal.ParameterType.BOOLEAN,False,
+    portal.ParameterType.BOOLEAN,True,
     longDescription="Multiplex any networks over physical interfaces using VLANs.  Some physical machines have only a single experiment network interface, so if you want multiple links/LANs, you have to enable multiplexing.  Currently, if you select this option.",
     advanced=True)
 pc.defineParameter(
@@ -81,7 +81,7 @@ pc.defineParameter(
     advanced=True)
 pc.defineParameter(
     "kubesprayVersion","Kubespray Version",
-    portal.ParameterType.STRING,"release-2.16",
+    portal.ParameterType.STRING,"release-2.18",
     longDescription="A tag or commit-ish value; we will run `git checkout <value>`.  The default value is the most recent stable value we have tested.  You should only change this if you need a new feature only available on `master`, or an old feature from a prior release.  We support versions back to release-2.13 only.",
     advanced=True)
 pc.defineParameter(
