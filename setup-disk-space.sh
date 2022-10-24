@@ -143,7 +143,7 @@ fi
 #
 # Redirect some Docker/k8s dirs into our extra storage.
 #
-for dir in docker kubelet ; do
+for dir in containerd docker kubelet ; do
     $SUDO mkdir -p $STORAGEDIR/$dir /var/lib/$dir
     $SUDO mount -o bind $STORAGEDIR/$dir /var/lib/$dir
     echo "$STORAGEDIR/$dir /var/lib/$dir none defaults,bind 0 0" \
