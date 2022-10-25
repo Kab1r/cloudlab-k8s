@@ -39,8 +39,8 @@ git clone https://github.com/delimitrou/DeathStarBench
 helm upgrade --install socialnetwork \
     --set global.replicas=3 \
     --set global.nginx.resolverName=coredns.kube-system.svc.cluster.local \
-    --set global.memcached.cluster.enabled=true \
-    --set global.memcached.standalone.enabled=false \
+    --set global.memcached.cluster.enabled=false \
+    --set global.memcached.standalone.enabled=true \
     --set global.redis.cluster.enabled=true \
     --set global.redis.standalone.enabled=false \
     ./DeathStarBench/socialNetwork/helm-chart/socialnetwork
@@ -60,7 +60,7 @@ helm upgrade --install grafana grafana/grafana \
     --set service.annotations."metallb\.universe\.tf/allow-shared-ip"=dsb \
 
 # Patch DeathstarBench social network to allow shared public ip with grafana
-kubectl patch svc nginx-thrift -p '{"metadata": {"annotations": {"metallb.universe.tf/allow-shared-ip": dsb}}, "spec": { "type": "LoadBalancer"} }'
+kubectl patch svc nginx-thrift -p '{"metadata": {"annotations": {"metallb.universe.tf/allow-shared-ip": "dsb"}}, "spec": { "type": "LoadBalancer"} }'
 
 # Initalize Social Graph
 pip3 install typing-extensions \
@@ -72,6 +72,8 @@ pip3 install typing-extensions \
     idna_ssl \
     aiosignal \
     aiohttp \
+
+# TODO: Wait for socialnetwork to be ready
 
 cd DeathStarBench/socialNetwork
 python3 scripts/init_social_graph.py --ip $(kubectl get svc nginx-thrift -o json | yq r - 'spec.clusterIP')
