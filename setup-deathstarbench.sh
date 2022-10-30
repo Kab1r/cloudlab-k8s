@@ -41,8 +41,8 @@ helm upgrade --install socialnetwork \
     --set global.nginx.resolverName=coredns.kube-system.svc.cluster.local \
     --set global.memcached.cluster.enabled=false \
     --set global.memcached.standalone.enabled=true \
-    --set global.redis.cluster.enabled=true \
-    --set global.redis.standalone.enabled=false \
+    --set global.redis.cluster.enabled=false \
+    --set global.redis.standalone.enabled=true \
     ./DeathStarBench/socialNetwork/helm-chart/socialnetwork
 
 # Deploy Grafana
