@@ -33,7 +33,7 @@ if [ -n "$DONFS" -a $DONFS -eq 1 ]; then
 fi
 
 # Clone DeathStarBench repo
-git clone https://github.com/delimitrou/DeathStarBench
+git clone https://github.com/Kab1r/DeathStarBench
 
 # Deploy DeathStarBench social network with clustered memcached and redis but not mongodb (for now)
 helm upgrade --install socialnetwork \
